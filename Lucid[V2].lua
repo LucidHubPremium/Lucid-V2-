@@ -391,55 +391,6 @@ local regDelay = 0
 
 -- Functions
 
-local Players = game:GetService("Players")
-local Mouse = Players.LocalPlayer:GetMouse()
-local numTeleports = 30 -- Define the number of teleports
-local tooggleEnabled = false -- Variable to track the toggle state
-
-local regtog = false -- Variable to track the toggle state
-
-local function teleportToClosestFootball()
-	if regtog == true then
-		task.wait()
-		uis.InputBegan:Connect(function(input)
-			if input.UserInputType == Enum.UserInputType.MouseButton1 then
-				local catchRight = Players.LocalPlayer.Character:FindFirstChild("CatchRight")
-
-				if not catchRight then
-					return
-				end
-
-				local closestFootball = nil
-				local closestDistance = math.huge
-
-				for i, v in pairs(game.Workspace:GetDescendants()) do
-					if v.Name == "Football" and v:IsA("BasePart") then
-						local distance = (v.Position - catchRight.Position).Magnitude
-						if distance < closestDistance and distance <= blatant then
-							v.CanCollide = false
-							closestDistance = distance
-							closestFootball = v
-						end
-					end
-				end
-
-				-- Teleport the closest football if found
-				if closestFootball then
-					for _ = 1, numTeleports do
-						if regtog == true then
-							wait(regDelay)
-							local tweenService = game:GetService("TweenService")
-							local tweenInfo = TweenInfo.new(.05, Enum.EasingStyle.Linear)
-							tweenService:Create(closestFootball, tweenInfo, {CFrame = catchRight.CFrame}):Play()
-							wait(.05)
-						end
-					end
-				end
-			end
-		end)
-	end
-end
-
 
 
 
@@ -468,46 +419,12 @@ local column = tabsection:AddColumn({
 
 
 local section = column:Section({
-   Title = "Regular Mags"
+   Title = "Coming Soon!"
 })
 
 
 
-section:Toggle({
-   Text = "Regular Mags",
-   State = false,
-   Callback = function(v) 
-    regtog = v
-	if regtog == true then
-		task.wait()
-		teleportToClosestFootball()
-	end
-end,
-})
 
-
-
-section:Slider({
-   Text = "Regular Delay",
-   Min = 0,
-   Max = 1,
-   Def = 0,
-   Callback = function(v) 
-       regDelay = v
-    end,
-})
-
-
-
-section:Slider({
-   Text = "Regular Distance",
-   Min = 0,
-   Max = 60,
-   Def = 0,
-   Callback = function(v) 
-        blatant = v
-    end,
-})
 
 
 
@@ -738,12 +655,12 @@ game:GetService("UserInputService").InputBegan:Connect(onKeyPress)
 
 
 local column = tabsection:AddColumn({
-   Title = "Kicking"
+   Title = "Automatics"
 })
 
 
 local section = column:Section({
-   Title = "Kicker Aimbot"
+   Title = "Auto"
 })
 
 
@@ -803,7 +720,7 @@ end)
 
 
 section:Toggle({
-   Text = "Kicking Aimbot",
+   Text = "Auto Kick",
    State = false,
    Callback = function(v) 
 		autokick = v
@@ -812,6 +729,60 @@ end,
 
 
 
+local autoswatv = 0
+
+local enabledd = false
+
+local function autoswatfunction()
+	if enabledd then
+		local player = game.Players.LocalPlayer
+		local character = player.Character or player.CharacterAdded:Wait()
+		local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+		local RunService = game:GetService("RunService")
+
+		local function checkDistance(part)
+			local distance = (part.Position - humanoidRootPart.Position).Magnitude
+			if distance <= autoswatv then
+				keypress(0x52)
+				keyrelease(0x52)
+				task.wait()
+			end
+		end
+		local function updateDistances()
+			for _, v in pairs(game.Workspace:GetDescendants()) do
+				if v.Name == "Football" and v:IsA("BasePart") then
+					checkDistance(v)
+				end
+			end
+		end
+		connection = RunService.Heartbeat:Connect(updateDistances)
+	else
+		if connection then
+			connection:Disconnect()
+			connection = nil
+		end
+	end
+end
+
+
+section:Toggle({
+   Text = "Auto Swat",
+   State = false,
+   Callback = function(v) 
+	enabledd = v
+	autoswatfunction()
+end,
+	})
+
+
+
+
+section:Button({
+   Text = "Auto Finish Captain",
+   Callback = function() 
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Models.LockerRoomA.FinishLine.CFrame + Vector3.new(0, 2, 0)
+        end,
+	})
 
 
 local column = tabsection:AddColumn({
@@ -924,7 +895,7 @@ local Tracers = {}
              if Ball then
                  local Tracer = Drawing.new("Line")
                  Tracer.Visible = false
-                 Tracer.Color = Color3.fromRGB(255, 0, 0)
+                 Tracer.Color = Color3.fromRGB(99, 148, 247)
                  Tracer.Thickness = 1
                  Tracer.Transparency = 1
      
@@ -932,7 +903,7 @@ local Tracers = {}
                  TextLabel.Text = ""
                  TextLabel.Transparency = 1
                  TextLabel.Visible = false
-                 TextLabel.Color = Color3.fromRGB(255, 0, 0)
+                 TextLabel.Color = Color3.fromRGB(99, 148, 247)
                  TextLabel.Size = 25
      
                  local con
@@ -948,15 +919,15 @@ local Tracers = {}
                              Tracer.Visible = true
                              TextLabel.Visible = true
      
-                             TextLabel.Text = tostring(math.floor(Distance)) .. "m"
+                             TextLabel.Text = tostring(math.floor(Distance)) .. " yards"
                              TextLabel.Position = Vector2.new(Vector.X, Vector.Y)
      
                              if Distance <= 50 then
-                                 TextLabel.Color = Color3.fromRGB(0, 255, 0)
-                                 Tracer.Color = Color3.fromRGB(0, 255, 0)
+                                 TextLabel.Color = Color3.fromRGB(99, 148, 247)
+                                 Tracer.Color = Color3.fromRGB(99, 148, 247)
                              else
-                                 TextLabel.Color = Color3.fromRGB(255, 0, 0)
-                                 Tracer.Color = Color3.fromRGB(255, 0, 0)
+                                 TextLabel.Color = Color3.fromRGB(99, 148, 247)
+                                 Tracer.Color = Color3.fromRGB(99, 148, 247)
                              end
                          else
                              Tracer.Visible = false
@@ -1014,10 +985,112 @@ section:Toggle({
 })
 
 
+local section = column:Section({
+   Title = ""
+})
+
+local set = {
+    sinewavefield = false
+}
+
+section:Toggle({
+   Text = "Sinewave Field",
+   State = false,
+   Callback = function(v) 
+    set.sinewavefield = v
+end,
+	})
+
+task.spawn(function()
+    local grass = {}
+    for i, v in next, game:GetService("Workspace").Models.Field.Grass.Normal:GetDescendants() do
+        if v.Name == "Grass" or v.Name == "Mid" and v:IsA("BasePart") then
+            table.insert(grass, v)
+        end
+    end
+    local origColor = game:GetService("Workspace").Models.Field.Grass.Outside.Grass.Color
+
+    local sin = math.sin
+    local pi = math.pi
+    local parts = {}
+    local numParts = #grass
+    local amplitude = 0.1
+    local frequency = 0.55
+    local offset = 0
+    local oldoffset = 0
+
+    local ts = game:GetService("TweenService")
+    local tweens = {}
+
+    -- Store the original colors of the grass parts
+    local originalColors = {}
+    for i, part in ipairs(grass) do
+        originalColors[part] = part.Color
+    end
+
+    while true do
+        if not set.sinewavefield then
+            for i, tween in ipairs(tweens) do
+                tween:Cancel()
+            end
+            tweens = {}
+
+            -- Restore the original colors of the grass parts
+            for i, part in ipairs(grass) do
+                part.Color = originalColors[part]
+            end
+
+            task.wait()
+            continue
+        end
+
+        offset = offset + 0.1
+        local floor_offset = math.floor(offset)
+
+        for i, part in ipairs(grass) do
+            local hue = 0.6 -- Adjust this value to the desired hue (blue)
+            local saturation = 0.5
+            local value = 0.5 + (sin(offset * frequency + i * pi / #grass) + 1) / 2 * 0.4
+
+            local color = Color3.fromHSV(hue, saturation, value)
+
+            local tween = ts:Create(part, TweenInfo.new(0.15, Enum.EasingStyle.Linear, Enum.EasingDirection.In), { Color = color })
+            tween:Play()
+            table.insert(tweens, tween)
+        end
+
+        if math.floor(oldoffset) ~= floor_offset and floor_offset % 5 == 0 then
+            task.wait(0.25)
+        end
+
+        wait()
+    end
+end)
+
+
+
 
 local section = column:Section({
    Title = ""
 })
+
+
+
+
+section:Button({
+   Text = "Destroy Uniform",
+   Callback = function() 
+            for i, v in pairs(game.workspace:GetDescendants()) do
+                if v:IsA("Model") and v.Parent.Name == game.Players.LocalPlayer.Name and v.Name == "Uniform" then
+                v:Destroy()
+                end
+            end
+        end,
+     })
+
+
+
+
 
 
 section:Button({
