@@ -733,50 +733,7 @@ end,
 
 
 
-local autoswatv = 0
 
-local enabledd = false
-
-local function autoswatfunction()
-	if enabledd then
-		local player = game.Players.LocalPlayer
-		local character = player.Character or player.CharacterAdded:Wait()
-		local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
-		local RunService = game:GetService("RunService")
-
-		local function checkDistance(part)
-			local distance = (part.Position - humanoidRootPart.Position).Magnitude
-			if distance <= autoswatv then
-				keypress(0x52)
-				keyrelease(0x52)
-				task.wait()
-			end
-		end
-		local function updateDistances()
-			for _, v in pairs(game.Workspace:GetDescendants()) do
-				if v.Name == "Football" and v:IsA("BasePart") then
-					checkDistance(v)
-				end
-			end
-		end
-		connection = RunService.Heartbeat:Connect(updateDistances)
-	else
-		if connection then
-			connection:Disconnect()
-			connection = nil
-		end
-	end
-end
-
-
-section:Toggle({
-   Text = "Auto Swat",
-   State = false,
-   Callback = function(v) 
-	enabledd = v
-	autoswatfunction()
-end,
-	})
 
 
 
