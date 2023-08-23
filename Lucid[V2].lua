@@ -1,36 +1,5 @@
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 local CoreGui = Instance.new("ScreenGui")
 local Coreloader = Instance.new("Frame")
 local Loader = Instance.new("Frame")
@@ -131,7 +100,7 @@ function namechange3()
 end
 
 function namechange4()
-	game:GetService("CoreGui").CoreGui.Coreloader.TextLabel2.Text = "Loading UI.."
+	game:GetService("CoreGui").CoreGui.Coreloader.TextLabel2.Text = "Lucid Loader"
 end
 
 function starttween()
@@ -224,25 +193,11 @@ end
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/Kronos"))()
 
 local window = library:Window({
-   Title = "KronosLib - By LeadMarker#1219",
-   Accent = Color3.fromRGB(69,69,207),
+   Title = "Lucid [V2]",
+   Accent = Color3.fromRGB(97, 153, 242),
    Logo = 3610245066,
    ToggleKey = Enum.KeyCode.LeftAlt
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -350,26 +305,7 @@ local window = library:Window({
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-local wiihub = {
+local Lucid = {
 	pv = true,
 	unitoggle = true,
 	blatoggle = true,
@@ -438,7 +374,7 @@ local column = tabsection:AddColumn({
 
 
 local section = column:Section({
-   Title = ""
+   Title = "Humanoid"
 })
 
 section:Slider({
@@ -492,7 +428,7 @@ Player.CharacterAdded:Connect(function(character)
 section:Slider({
    Text = "HipHeight",
    Min = 0,
-   Max = 18,
+   Max = 20,
    Def = 0,
    Callback = function(value) 
         Player.Character.Humanoid.HipHeight = value            -- Change any value you want
@@ -522,6 +458,60 @@ local column = tabsection:AddColumn({
 local section = column:Section({
    Title = "Enhancement"
 })
+
+
+
+
+
+local qbaimpred = false
+
+
+section:Toggle({
+   Text = "Qb Aim Trajectory Predictions",
+   State = false,
+   Callback = function(v)
+	qbaimpred = v -- Update the toggle state
+
+	if qbaimpred then
+		local beam = Instance.new("Beam")
+		local a0 = Instance.new("Attachment")
+		local a1 = Instance.new("Attachment")   
+		local mouse = game.Players.LocalPlayer:GetMouse()
+		beam.Color = ColorSequence.new(Color3.fromRGB(97, 165, 237))
+		beam.Transparency = NumberSequence.new(0, 0)
+		beam.Segments = 10 * 300
+		beam.Name = "Hitbox"
+		beam.Parent = workspace.Terrain
+		a0.Parent = workspace.Terrain
+		a1.Parent = workspace.Terrain
+		beam.Attachment0 = a0
+		beam.Attachment1 = a1
+		beam.Width0 = 0.5
+		beam.Width1 = 0.5
+		while qbaimpred do
+			task.wait()
+			if game.Players.LocalPlayer.Character:FindFirstChild("Football") and game.Players.LocalPlayer.PlayerGui:FindFirstChild("BallGui") and game.Players.LocalPlayer.Character:FindFirstChild("Head") then
+				local power = tonumber(game.Players.LocalPlayer.PlayerGui.BallGui.Frame.Disp.Text)
+				local direction = (mouse.Hit.Position - workspace.CurrentCamera.CFrame.Position).Unit
+				local vel = power * direction
+				local origin = game.Players.LocalPlayer.Character.Head.Position + direction * 5
+				local c0, c1, cf1, cf2 = beamProjectile(Vector3.new(0, -28, 0), vel, origin, 15)
+				a0.CFrame = a0.Parent.CFrame:Inverse() * cf1
+				a1.CFrame = a1.Parent.CFrame:Inverse() * cf2
+				beam.CurveSize0 = c0
+				beam.CurveSize1 = c1
+			end
+		end
+		beam:Destroy() -- Clean up the beam when toggled off
+	else
+		-- Toggle turned off
+		-- Add any additional code here to handle the toggle turning off
+	end
+end,
+	})
+
+
+
 
 
 section:Toggle({
@@ -564,7 +554,7 @@ section:Toggle({
 				part.Position = Vector3.new(optimal.X, player.Character.HumanoidRootPart.Position.Y + 1.5, optimal.Z)
 				part.Parent = workspace
 				part.Material = Enum.Material.Neon
-				part.Size = Vector3.new(1.5, 1.5, 1.5)
+				part.Size = Vector3.new(2.5, 2.5, 2.5)
 				repeat task.wait() until ball.Parent ~= workspace
 				part:Destroy()
 			end
@@ -880,7 +870,7 @@ local Tracers = {}
                              Tracer.Visible = true
                              TextLabel.Visible = true
      
-                             TextLabel.Text = tostring(math.floor(Distance)) .. " yards"
+                             TextLabel.Text = tostring(math.floor(Distance)) .. " Yards"
                              TextLabel.Position = Vector2.new(Vector.X, Vector.Y)
      
                              if Distance <= 50 then
@@ -1057,20 +1047,21 @@ section:Button({
 section:Button({
    Text = "Chat Spy",
    Callback = function(value) 
- --This script reveals ALL hidden messages in the default chat
+ 
+--This script reveals ALL hidden messages in the default chat
 --chat "/spy" to toggle!
-enabled = true
+	enabled = true
 --if true will check your messages too
-spyOnMyself = true
+	spyOnMyself = true
 --if true will chat the logs publicly (fun, risky)
-public = false
+	public = false
 --if true will use /me to stand out
-publicItalics = true
+	publicItalics = true
 --customize private logs
-privateProperties = {
-    Color = Color3.fromRGB(62, 148, 240); 
+	privateProperties = {
+		Color = Color3.fromRGB(62, 148, 240); 
     Font = Enum.Font.SourceSansBold;
-    TextSize = 18;
+  			  TextSize = 18;
 }
 local StarterGui = game:GetService("StarterGui")
 local Players = game:GetService("Players")
@@ -1135,4 +1126,47 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/CasperFlyModz/discord
 })
 	
 
-    
+
+
+
+
+section:Button({
+   Text = "Hide Players",
+   Callback = function(value) 
+local Players = game:GetService("Players")
+
+local LocalPlayer = Players.LocalPlayer
+
+--//Set a character's transparency to 1
+local function SetCharacterTransparency(character)
+	for i, descendant in ipairs(character:GetDescendants()) do
+		if not descendant:IsA("BasePart") then
+			continue
+		end
+
+		descendant.Transparency = 1
+	end
+end
+
+--//Set all player's character's transparency to 1
+for i, player in ipairs(Players:GetPlayers()) do
+	if player == LocalPlayer then
+		continue
+	end
+	
+	player.CharacterAdded:Connect(function(character)
+		if not player:HasAppearanceLoaded() then
+			player.CharacterAppearanceLoaded:Wait()
+		end
+		
+		SetCharacterTransparency(character)
+	end)
+	
+	if not player.Character then
+		continue
+	end
+	
+	SetCharacterTransparency(player.Character)
+end
+		end,
+	})
