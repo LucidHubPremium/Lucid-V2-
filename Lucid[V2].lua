@@ -1,3 +1,24 @@
+keys = {
+[asdasd123124565464] = true, -- Random key!
+[KEY HERE] = true,
+[KEY HERE] = true
+}
+return keys
+
+if whitelistecheck[_G.key] then
+else
+game:service('Players').LocalPlayer:Kick('Not Whitelisted')
+end
+
+
+
+
+
+
+
+
+
+
 
 
 
