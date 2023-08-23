@@ -1,18 +1,3 @@
-keys = {
-[asdasd123124565464] = true, -- Random key!
-}
-return keys
-
-if whitelistecheck[_G.key] then
-else
-game:service('Players').LocalPlayer:Kick('Not Whitelisted')
-end
-
-
-
-
-
-
 
 
 
