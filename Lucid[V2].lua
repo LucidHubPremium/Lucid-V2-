@@ -443,9 +443,9 @@ local section = column:Section({
 
 section:Slider({
    Text = "WalkSpeed",
-   Min = 0,
+   Min = 20,
    Max = 45,
-   Def = 20,
+   Def = 0,
    Callback = function(value) 
         Player.Character.Humanoid.WalkSpeed = value            -- Change any value you want
 end,
@@ -467,7 +467,7 @@ Player.CharacterAdded:Connect(function(character)
 
 section:Slider({
    Text = "JumpPower",
-   Min = 0,
+   Min = 50,
    Max = 100,
    Def = 0,
    Callback = function(value) 
