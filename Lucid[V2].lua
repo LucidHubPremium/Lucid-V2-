@@ -190,7 +190,7 @@ end
 
 
 
-local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/Kronos"))()
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/LucidHubPremium/Lucid-V2-/main/LucidLib.lua"))()
 
 local window = library:Window({
    Title = "Lucid [V2]",
