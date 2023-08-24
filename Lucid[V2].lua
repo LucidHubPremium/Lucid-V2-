@@ -1018,47 +1018,6 @@ end)
 
 
 
-section:Toggle({
-   Text = "Hide All Players",
-   State = false,
-   Callback = function(value) 
-local Players = game:GetService("Players")
-
-local LocalPlayer = Players.LocalPlayer
-
---//Set a character's transparency to 1
-local function SetCharacterTransparency(character)
-	for i, descendant in ipairs(character:GetDescendants()) do
-		if not descendant:IsA("BasePart") then
-			continue
-		end
-
-		descendant.Transparency = 1
-	end
-end
-
---//Set all player's character's transparency to 1
-for i, player in ipairs(Players:GetPlayers()) do
-	if player == LocalPlayer then
-		continue
-	end
-	
-	player.CharacterAdded:Connect(function(character)
-		if not player:HasAppearanceLoaded() then
-			player.CharacterAppearanceLoaded:Wait()
-		end
-		
-		SetCharacterTransparency(character)
-	end)
-	
-	if not player.Character then
-		continue
-	end
-	
-	SetCharacterTransparency(player.Character)
-end
-		end,
-	})
 
 
 
@@ -1170,6 +1129,52 @@ section:Button({
 loadstring(game:HttpGet("https://raw.githubusercontent.com/CasperFlyModz/discord.gg-rips/main/FPSBooster.lua"))()
 	end,
 })
+
+
+
+
+
+ssection:Button({
+   Text = "Hide All Players",
+   Callback = function(value) 
+local Players = game:GetService("Players")
+
+local LocalPlayer = Players.LocalPlayer
+
+--//Set a character's transparency to 1
+local function SetCharacterTransparency(character)
+	for i, descendant in ipairs(character:GetDescendants()) do
+		if not descendant:IsA("BasePart") then
+			continue
+		end
+
+		descendant.Transparency = 1
+	end
+end
+
+--//Set all player's character's transparency to 1
+for i, player in ipairs(Players:GetPlayers()) do
+	if player == LocalPlayer then
+		continue
+	end
+	
+	player.CharacterAdded:Connect(function(character)
+		if not player:HasAppearanceLoaded() then
+			player.CharacterAppearanceLoaded:Wait()
+		end
+		
+		SetCharacterTransparency(character)
+	end)
+	
+	if not player.Character then
+		continue
+	end
+	
+	SetCharacterTransparency(player.Character)
+end
+		end,
+	})
+
 	
 
 
