@@ -51,7 +51,7 @@ end
 
 function library:Window(options)
     local TitleUI = options.Title or "Kronos Lib"
-    local Accent = options.Accent or Color3.fromRGB(69, 69, 207)
+    local Accent = options.Accent or Color3.fromRGB(28,28,28)
     local Logo = options.Logo or '3610245066'
     local Toggle_Key = options.ToggleKey or Enum.KeyCode.LeftBracket
 
@@ -177,7 +177,7 @@ function library:Window(options)
     local _2MiddleSide = Instance.new("Frame")
     _2MiddleSide.Name = "2MiddleSide"
     _2MiddleSide.Parent = Main
-    _2MiddleSide.BackgroundColor3 = Color3.fromRGB(36, 36, 38)
+    _2MiddleSide.BackgroundColor3 = Color3.fromRGB(28,28,28)
     _2MiddleSide.BorderSizePixel = 0
     _2MiddleSide.Position = UDim2.new(0.140000001, 0, 0, 0)
     _2MiddleSide.Size = UDim2.new(0, 150, 0, 400)
@@ -185,7 +185,7 @@ function library:Window(options)
 
     local _3Container = Instance.new("Frame")
     _3Container.Parent = Main
-    _3Container.BackgroundColor3 = Color3.fromRGB(36, 36, 38)
+    _3Container.BackgroundColor3 = Color3.fromRGB(28,28,28)
     _3Container.BorderSizePixel = 0
     _3Container.Position = UDim2.new(0.439999998, 0, 0, 0)
     _3Container.Size = UDim2.new(0, 280, 0, 400)
@@ -339,13 +339,13 @@ function library:Window(options)
             Toggle_Section.Rotation = 270.000
             Toggle_Section.Size = UDim2.new(0, 25, 0, 25)
             Toggle_Section.Image = "rbxassetid://4370337241"
-            Toggle_Section.ImageColor3 = Color3.fromRGB(150, 150, 150)
+            Toggle_Section.ImageColor3 = Color3.fromRGB(150,150,150)
             Toggle_Section.ScaleType = Enum.ScaleType.Fit
 
             local Section_Frame = Instance.new("Frame")
             Section_Frame.Name = "Section_Frame"
             Section_Frame.Parent = middle_scroll
-            Section_Frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            Section_Frame.BackgroundColor3 = Color3.fromRGB(28,28,28)
             Section_Frame.BackgroundTransparency = 1
             Section_Frame.Size = UDim2.new(0, 125, 0, 0)
             Section_Frame.ClipsDescendants = true
