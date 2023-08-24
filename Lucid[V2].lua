@@ -120,12 +120,7 @@ wait(2.4)
 namechange4()
 wait(6.0)
 
-function endtween2()
-	local tweenInfo2 = TweenInfo.new(tween_time2, Enum.EasingStyle.Quad)
-	local tween2 = game:GetService("TweenService"):Create(frame2, tweenInfo2, {Position = guipos})
-	tween2:Play()
-end
-endtween2()
+
 
 wait(5)
 
