@@ -61,13 +61,13 @@ TextLabel.TextColor3 = Color3.new(1, 1, 1)
 TextLabel.TextSize = 14
 
 TextButton.Parent = Coreloader
-TextButton.BackgroundColor3 = Color3.new(0.176471, 0.176471, 0.176471)
-TextButton.BorderColor3 = Color3.new(0, 0, 0)
+TextButton.BackgroundColor3 = Color3.fromRGB(30, 31, 33)
+TextButton.BorderColor3 = Color3.fromRGB(30, 31, 33)
 TextButton.BorderSizePixel = 0
 TextButton.Position = UDim2.new(0.383802831, 0, 0.430962354, 0)
 TextButton.Size = UDim2.new(0, 130, 0, 50)
 TextButton.Font = Enum.Font.Gotham
-TextButton.Text = "Copy Discord Link"
+TextButton.Text = "Authenticating.."
 TextButton.TextColor3 = Color3.new(1, 1, 1)
 TextButton.TextSize = 14
 
@@ -1016,6 +1016,57 @@ end)
 
 
 
+
+
+section:Toggle({
+   Text = "Hide All Players",
+   State = false,
+   Callback = function(value) 
+local Players = game:GetService("Players")
+
+local LocalPlayer = Players.LocalPlayer
+
+--//Set a character's transparency to 1
+local function SetCharacterTransparency(character)
+	for i, descendant in ipairs(character:GetDescendants()) do
+		if not descendant:IsA("BasePart") then
+			continue
+		end
+
+		descendant.Transparency = 1
+	end
+end
+
+--//Set all player's character's transparency to 1
+for i, player in ipairs(Players:GetPlayers()) do
+	if player == LocalPlayer then
+		continue
+	end
+	
+	player.CharacterAdded:Connect(function(character)
+		if not player:HasAppearanceLoaded() then
+			player.CharacterAppearanceLoaded:Wait()
+		end
+		
+		SetCharacterTransparency(character)
+	end)
+	
+	if not player.Character then
+		continue
+	end
+	
+	SetCharacterTransparency(player.Character)
+end
+		end,
+	})
+
+
+
+
+
+
+
+
 local section = column:Section({
    Title = ""
 })
@@ -1125,43 +1176,3 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/CasperFlyModz/discord
 
 
 
-section:Button({
-   Text = "Hide Players",
-   Callback = function(value) 
-local Players = game:GetService("Players")
-
-local LocalPlayer = Players.LocalPlayer
-
---//Set a character's transparency to 1
-local function SetCharacterTransparency(character)
-	for i, descendant in ipairs(character:GetDescendants()) do
-		if not descendant:IsA("BasePart") then
-			continue
-		end
-
-		descendant.Transparency = 1
-	end
-end
-
---//Set all player's character's transparency to 1
-for i, player in ipairs(Players:GetPlayers()) do
-	if player == LocalPlayer then
-		continue
-	end
-	
-	player.CharacterAdded:Connect(function(character)
-		if not player:HasAppearanceLoaded() then
-			player.CharacterAppearanceLoaded:Wait()
-		end
-		
-		SetCharacterTransparency(character)
-	end)
-	
-	if not player.Character then
-		continue
-	end
-	
-	SetCharacterTransparency(player.Character)
-end
-		end,
-	})
