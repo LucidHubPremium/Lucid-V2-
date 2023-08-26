@@ -1,7 +1,7 @@
 local whitelist = { 
      Usernames = { 
          "NvidiRTX1", 
-         "Glucossssses", 
+         "Glucosesssss", 
          "Fortnite_OG321u", 
   
      }, 
