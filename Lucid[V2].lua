@@ -1,132 +1,39 @@
-
-
-local CoreGui = Instance.new("ScreenGui")
-local Coreloader = Instance.new("Frame")
-local Loader = Instance.new("Frame")
-local Thing = Instance.new("Frame")
-local TextLabel2 = Instance.new("TextLabel")
-local TextLabel = Instance.new("TextLabel")
-local TextButton = Instance.new("TextButton")
- 
-CoreGui.Name = "CoreGui"
-CoreGui.Parent = game.CoreGui
-CoreGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-
-Coreloader.Name = "Coreloader"
-Coreloader.Parent = CoreGui
-Coreloader.BackgroundColor3 = Color3.fromRGB(30, 31, 33)
-Coreloader.BorderColor3 = Color3.new(0, 0, 0)
-Coreloader.BorderSizePixel = 0
-Coreloader.Position = UDim2.new(0.35, 0, 0.36807102, 0)
-Coreloader.Size = UDim2.new(0, 568, 0, 239)
-
-Loader.Name = "Loader"
-Loader.Parent = Coreloader
-Loader.BackgroundColor3 = Color3.fromRGB(49, 50, 54)
-Loader.BorderColor3 = Color3.new(0, 0, 0)
-Loader.BorderSizePixel = 0
-Loader.Position = UDim2.new(0.0528169014, 0, 0.815899551, 0)
-Loader.Size = UDim2.new(0, 507, 0, 8)
-
-Thing.Name = "Thing"
-Thing.Parent = Loader
-Thing.BackgroundColor3 = Color3.fromRGB(27, 97, 227)
-Thing.BorderColor3 = Color3.new(0, 0, 0)
-Thing.BorderSizePixel = 0
-Thing.Size = UDim2.new(0, 0, 0, 8)
-
-TextLabel2.Name = "TextLabel2"
-TextLabel2.Parent = Coreloader
-TextLabel2.BackgroundColor3 = Color3.new(1, 1, 1)
-TextLabel2.BackgroundTransparency = 1
-TextLabel2.BorderColor3 = Color3.new(0, 0, 0)
-TextLabel2.BorderSizePixel = 0
-TextLabel2.Position = UDim2.new(0.0827464759, 0, 0.125523016, 0)
-TextLabel2.Size = UDim2.new(0, 473, 0, 50)
-TextLabel2.Font = Enum.Font.Gotham
-TextLabel2.Text = "Lucid Loader"
-TextLabel2.TextColor3 = Color3.new(1, 1, 1)
-TextLabel2.TextSize = 28
-
-TextLabel.Parent = Coreloader
-TextLabel.BackgroundColor3 = Color3.new(1, 1, 1)
-TextLabel.BackgroundTransparency = 1
-TextLabel.BorderColor3 = Color3.new(0, 0, 0)
-TextLabel.BorderSizePixel = 0
-TextLabel.Position = UDim2.new(0.107394367, 0, 0.882845163, 0)
-TextLabel.Size = UDim2.new(0, 441, 0, 19)
-TextLabel.Font = Enum.Font.Gotham
-TextLabel.Text = ""
-TextLabel.TextColor3 = Color3.new(1, 1, 1)
-TextLabel.TextSize = 14
-
-TextButton.Parent = Coreloader
-TextButton.BackgroundColor3 = Color3.fromRGB(30, 31, 33)
-TextButton.BorderColor3 = Color3.fromRGB(30, 31, 33)
-TextButton.BorderSizePixel = 0
-TextButton.Position = UDim2.new(0.383802831, 0, 0.430962354, 0)
-TextButton.Size = UDim2.new(0, 130, 0, 50)
-TextButton.Font = Enum.Font.Gotham
-TextButton.Text = "Authenticating.."
-TextButton.TextColor3 = Color3.new(1, 1, 1)
-TextButton.TextSize = 14
-
-
-
-local frame = game:GetService("CoreGui").CoreGui.Coreloader.Loader.Thing
-local guisize = UDim2.new(0, 509,0, 8)
-local tween_time = math.random(4,5)
-local tween_time2 = 2
-local frame2 = game:GetService("CoreGui").CoreGui.Coreloader
-local guipos = UDim2.new(0.35, 0,-0.500, 0)
-local button = game:GetService("CoreGui").CoreGui.Coreloader.TextButton
-
-button.MouseButton1Click:Connect(function()
-setclipboard("https://discord.gg/hwmCFgppQH")
-end)
-
-wait(0.1)	
-
-function namechange1()
-	game:GetService("CoreGui").CoreGui.Coreloader.TextLabel2.Text = "Lucid Loader"
-end
-
-function namechange2()
-	game:GetService("CoreGui").CoreGui.Coreloader.TextLabel2.Text = "Lucid Loader"
-end
-
-function namechange3()
-	game:GetService("CoreGui").CoreGui.Coreloader.TextLabel2.Text = "Lucid Loader"
-end
-
-function namechange4()
-	game:GetService("CoreGui").CoreGui.Coreloader.TextLabel2.Text = "Lucid Loader"
-end
-
-function starttween()
-	local tweenInfo = TweenInfo.new(tween_time, Enum.EasingStyle.Linear)
-	local tween = game:GetService("TweenService"):Create(frame, tweenInfo, {Size = guisize})
-	tween:Play()
-end	
-wait(0.5)
-starttween()
-wait(1)
-namechange1()
-wait(1.2)
-namechange2()
-wait(1.4)
-namechange3()
-wait(2.4)
-namechange4()
-wait(6.0)
-
-
-
-wait(5)
-
-
-
-	game:GetService("CoreGui").CoreGui:Destroy()
+local whitelist = { 
+     Usernames = { 
+         "NvidiRTX1", 
+         "Glucossssses", 
+         "username3", 
+  
+     }, 
+     UserIds = { 
+         00000000, 
+         11111111, 
+         22222222, 
+     } 
+ } 
+  
+ local isPassed = false 
+ local player = game.Players.LocalPlayer 
+  
+ for i,v in pairs(whitelist.Usernames) do 
+     if player.Name == v then 
+         isPassed = true 
+     end 
+ end 
+  
+ for i,v in pairs(whitelist.UserIds) do 
+     if player.UserId == v then 
+         isPassed = true 
+     end 
+ end 
+  
+ if isPassed == false then 
+     player:Kick("You are not whitelisted!") 
+     task.wait(3) 
+     game:Shutdown() 
+     task.wait(1) 
+     while true do end 
+ end 
 
 
 
@@ -458,52 +365,6 @@ local section = column:Section({
 
 
 
-local qbaimpred = false
-
-
-section:Toggle({
-   Text = "Qb Aim Trajectory Predictions",
-   State = false,
-   Callback = function(v)
-	qbaimpred = v -- Update the toggle state
-
-	if qbaimpred then
-		local beam = Instance.new("Beam")
-		local a0 = Instance.new("Attachment")
-		local a1 = Instance.new("Attachment")   
-		local mouse = game.Players.LocalPlayer:GetMouse()
-		beam.Color = ColorSequence.new(Color3.fromRGB(97, 165, 237))
-		beam.Transparency = NumberSequence.new(0, 0)
-		beam.Segments = 10 * 300
-		beam.Name = "Hitbox"
-		beam.Parent = workspace.Terrain
-		a0.Parent = workspace.Terrain
-		a1.Parent = workspace.Terrain
-		beam.Attachment0 = a0
-		beam.Attachment1 = a1
-		beam.Width0 = 0.5
-		beam.Width1 = 0.5
-		while qbaimpred do
-			task.wait()
-			if game.Players.LocalPlayer.Character:FindFirstChild("Football") and game.Players.LocalPlayer.PlayerGui:FindFirstChild("BallGui") and game.Players.LocalPlayer.Character:FindFirstChild("Head") then
-				local power = tonumber(game.Players.LocalPlayer.PlayerGui.BallGui.Frame.Disp.Text)
-				local direction = (mouse.Hit.Position - workspace.CurrentCamera.CFrame.Position).Unit
-				local vel = power * direction
-				local origin = game.Players.LocalPlayer.Character.Head.Position + direction * 5
-				local c0, c1, cf1, cf2 = beamProjectile(Vector3.new(0, -28, 0), vel, origin, 15)
-				a0.CFrame = a0.Parent.CFrame:Inverse() * cf1
-				a1.CFrame = a1.Parent.CFrame:Inverse() * cf2
-				beam.CurveSize0 = c0
-				beam.CurveSize1 = c1
-			end
-		end
-		beam:Destroy() -- Clean up the beam when toggled off
-	else
-		-- Toggle turned off
-		-- Add any additional code here to handle the toggle turning off
-	end
-end,
-	})
 
 
 
@@ -940,7 +801,7 @@ local set = {
 }
 
 section:Toggle({
-   Text = "Sinewave Field",
+   Text = "Change Field Color",
    State = false,
    Callback = function(v) 
     set.sinewavefield = v
@@ -1018,47 +879,6 @@ end)
 
 
 
-section:Toggle({
-   Text = "Hide All Players",
-   State = false,
-   Callback = function(value) 
-local Players = game:GetService("Players")
-
-local LocalPlayer = Players.LocalPlayer
-
---//Set a character's transparency to 1
-local function SetCharacterTransparency(character)
-	for i, descendant in ipairs(character:GetDescendants()) do
-		if not descendant:IsA("BasePart") then
-			continue
-		end
-
-		descendant.Transparency = 1
-	end
-end
-
---//Set all player's character's transparency to 1
-for i, player in ipairs(Players:GetPlayers()) do
-	if player == LocalPlayer then
-		continue
-	end
-	
-	player.CharacterAdded:Connect(function(character)
-		if not player:HasAppearanceLoaded() then
-			player.CharacterAppearanceLoaded:Wait()
-		end
-		
-		SetCharacterTransparency(character)
-	end)
-	
-	if not player.Character then
-		continue
-	end
-	
-	SetCharacterTransparency(player.Character)
-end
-		end,
-	})
 
 
 
