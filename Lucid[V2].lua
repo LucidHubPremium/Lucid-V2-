@@ -92,166 +92,6 @@ end
 
 
 
-local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/LucidHubPremium/Lucid-V2-/main/LucidLib.lua"))()
-
-local window = library:Window({
-   Title = "Lucid [V2]",
-   Accent = Color3.fromRGB(97, 153, 242),
-   Logo = 3610245066,
-   ToggleKey = Enum.KeyCode.LeftAlt
-})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-local Lucid = {
-	pv = true,
-	unitoggle = true,
-	blatoggle = true,
-	block = true,
-	AutoFollowQb = true,
-	tprange = 0,
-	autocatchv = 0,
-}
-
-local players = game:GetService("Players")
-local userInputService = game:GetService("UserInputService")
-local replicatedStorage = game:GetService("ReplicatedStorage")
-local remotes = replicatedStorage:FindFirstChild("Remotes")
-local characterSoundEvent = remotes:FindFirstChild("CharacterSoundEvent")
-local player = players.LocalPlayer
-local runService = game:GetService("RunService")
-
-local blatant = 0
-local universal = 0
-local uis = game:GetService("UserInputService")
-local uniDelay = 0
-local regDelay = 0
-
--- Functions
-
-
-
-
-
-
-
-local tooggleEnabled = false -- Variable to track the toggle state
-
-
-
-local whitelist = { 
-     Usernames = { 
-         "NvidiRTX1", 
-         "Glucosesssss", 
-         "fortnite_OG321u", 
-  
-     }, 
-     UserIds = { 
-         00000000, 
-         11111111, 
-         22222222, 
-     } 
- } 
-  
- local isPassed = false 
- local player = game.Players.LocalPlayer 
-  
- for i,v in pairs(whitelist.Usernames) do 
-     if player.Name == v then 
-         isPassed = true 
-     end 
- end 
-  
- for i,v in pairs(whitelist.UserIds) do 
-     if player.UserId == v then 
-         isPassed = true 
-     end 
- end 
-  
- if isPassed == false then 
-     player:Kick("You are not whitelisted!") 
-     task.wait(3) 
-     game:Shutdown() 
-     task.wait(1) 
-     while true do end 
- end 
-
-
-
-do --//
-    local coreGui = game:GetService("CoreGui")
-    local contentProvider = game:GetService('ContentProvider')
-    local tbl = {}
-    
-    for index, descendant in pairs(coreGui:GetDescendants()) do
-        if descendant:IsA("ImageLabel") and string.find(descendant.Image, "rbxasset://") then
-            table.insert(tbl, descendant.Image)
-        end
-    end
-    
-    local preloadAsync; preloadAsync = hookfunction(contentProvider.PreloadAsync, function(self, ...)
-        local args = {...}
-        if not checkcaller() and type(args[1]) == "table" and table.find(args[1], coreGui) then
-            args[1] = tbl
-            return preloadAsync(self, unpack(args))
-        end
-        return preloadAsync(self, ...)
-    end)
-    
-    local function compareMethod(m1, m2)
-        return string.lower(m1) == string.lower(m2)
-    end
-    
-    local __namecall; __namecall = hookmetamethod(game, "__namecall", function(self, ...)
-        local args = {...}
-        local method = getnamecallmethod()
-        if not checkcaller() and type(args[1]) == "table" and table.find(args[1], coreGui) and self == contentProvider and compareMethod("PreloadAsync", method) then
-            args[1] = tbl
-            return __namecall(self, unpack(args))
-        end
-        return __namecall(self, ...)
-    end)
-end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -345,34 +185,49 @@ local function universalcatch()
 	end
 end
 
+local regtog = false -- Variable to track the toggle state
 
+local function teleportToClosestFootball()
+	if regtog == true then
+		task.wait()
+		uis.InputBegan:Connect(function(input)
+			if input.UserInputType == Enum.UserInputType.MouseButton1 then
+				local catchRight = Players.LocalPlayer.Character:FindFirstChild("CatchRight")
 
+				if not catchRight then
+					return
+				end
 
+				local closestFootball = nil
+				local closestDistance = math.huge
 
+				for i, v in pairs(game.Workspace:GetDescendants()) do
+					if v.Name == "Football" and v:IsA("BasePart") then
+						local distance = (v.Position - catchRight.Position).Magnitude
+						if distance < closestDistance and distance <= blatant then
+							v.CanCollide = false
+							closestDistance = distance
+							closestFootball = v
+						end
+					end
+				end
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-local plr = game.Players.LocalPlayer
-local rs = game:GetService("RunService")
-
-
-
-
-local tooggleEnabled = false -- Variable to track the toggle state
-
-
+				-- Teleport the closest football if found
+				if closestFootball then
+					for _ = 1, numTeleports do
+						if regtog == true then
+							wait(regDelay)
+							local tweenService = game:GetService("TweenService")
+							local tweenInfo = TweenInfo.new(.05, Enum.EasingStyle.Linear)
+							tweenService:Create(closestFootball, tweenInfo, {CFrame = catchRight.CFrame}):Play()
+							wait(.05)
+						end
+					end
+				end
+			end
+		end)
+	end
+end
 
 
 
@@ -392,7 +247,7 @@ local column = tabsection:AddColumn({
 
 
 local section = column:Section({
-   Title = "Coming Soon!"
+   Title = "Regular Mags"
 })
 
 
@@ -414,10 +269,10 @@ section:Toggle({
    Text = "Lucid [V1] Magnets",
    State = false,
    Callback = function(v)
-tooggleEnabled = v
-	while tooggleEnabled == true do
+regtog = v
+	if regtog == true then
 		task.wait()
-		universalcatch()
+		teleportToClosestFootball()
 	end
 end,
  })
@@ -428,10 +283,10 @@ end,
 section:Slider({
    Text = "Customizable Distance",
    Min = 0,
-   Max = 30,
+   Max = 60,
    Def = 0,
  Callback = function(v)
-   universal = v
+   blatant = v
 		end,
 })
 
@@ -445,14 +300,16 @@ section:Slider({
    Max = 1,
    Def = 0,
    Callback = function(v) 
-uniDelay = v
+regDelay = v
     end,
 })
 
 
 
 
-
+local section = column:Section({
+   Title = "Pull Vector"
+})
 
 
 
