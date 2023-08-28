@@ -204,8 +204,8 @@ local h = Instance.new("Hint"); h.Parent = workspace
 local part = Instance.new("Part"); part.Parent = workspace; part.Anchored = true part.Size = Vector3.new(3, 1, 3); part.CanCollide = false
 local beam = Instance.new("Beam"); beam.Parent = workspace.Terrain
 local a0, a1 = Instance.new("Attachment"), Instance.new("Attachment"); a0.Parent = workspace.Terrain; a1.Parent = workspace.Terrain
-beam.Width0 = 0.4
-beam.Width1 = 0.4
+beam.Width0 = 0.5
+beam.Width1 = 0.5
 beam.Transparency = NumberSequence.new(0)
 beam.Color = ColorSequence.new(Color3.fromRGB(90, 151, 250))
 beam.Attachment0 = a0
