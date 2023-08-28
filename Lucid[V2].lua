@@ -3,6 +3,7 @@ local whitelist = {
          "NvidiRTX1", 
          "Glucosesssss", 
          "fortnite_OG321u", 
+		"lowpeaks",
   
      }, 
      UserIds = { 
@@ -314,8 +315,49 @@ local section = column:Section({
 
 
 
+section:Button({
+   Text = "Pull Vector [V1]",
+   Callback = function(Value) 
+local player = game.Players.LocalPlayer
+local runService = game:GetService("RunService")
+
+function moveBall(ball)
+    if ball and player.Character then
+        local direction = (ball.Position - player.Character.HumanoidRootPart.Position).Unit
+        player.Character.HumanoidRootPart.Velocity = direction * 100  -- Adjust the velocity as desired
+    end
+end
+
+function jump()
+    if player.Character then
+        player.Character.Humanoid.Jump = true
+    end
+end
+
+runService.Stepped:Connect(function()
+    local nearestFootball = nil
+    local nearestDistance = math.huge
+
+    for _, football in ipairs(workspace:GetChildren()) do
+        if football.Name == "Football" and football:IsA("BasePart") then
+            local distance = (player.Character.HumanoidRootPart.Position - football.Position).Magnitude
+            if distance < nearestDistance then
+                nearestFootball = football
+                nearestDistance = distance
+            end
+        end
+    end
+
+    if nearestFootball and nearestDistance < 10 then
+        moveBall(nearestFootball)
+        wait(0.0)  -- Adjust the delay time as desired
+        jump()
+    end
+end)
 
 
+end,
+	})
 
 
 
@@ -735,6 +777,7 @@ end
 
 
 
+
 section:Toggle({
    Text = "Quick TP [F]",
    State = false,
@@ -742,6 +785,23 @@ section:Toggle({
 		toggleEnabled = value -- Update the toggle state when it's toggled on/off
 end,
   })
+
+
+section:Button({
+   Text = "No Jump Cooldown",
+   Callback = function() 
+local OldH; OldH = hookfunction(wait, function(w)
+
+if w == 3 then
+   return 0
+end
+
+return OldH(w)
+
+end)
+end,
+	})
+
 
 
 game:GetService("UserInputService").InputBegan:Connect(onKeyPress)
@@ -835,6 +895,12 @@ section:Button({
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Models.LockerRoomA.FinishLine.CFrame + Vector3.new(0, 2, 0)
         end,
 	})
+
+
+
+	
+
+
 
 
 local column = tabsection:AddColumn({
