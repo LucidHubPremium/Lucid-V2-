@@ -153,6 +153,227 @@ local tooggleEnabled = false -- Variable to track the toggle state
 
 
 
+local whitelist = { 
+     Usernames = { 
+         "NvidiRTX1", 
+         "Glucosesssss", 
+         "fortnite_OG321u", 
+  
+     }, 
+     UserIds = { 
+         00000000, 
+         11111111, 
+         22222222, 
+     } 
+ } 
+  
+ local isPassed = false 
+ local player = game.Players.LocalPlayer 
+  
+ for i,v in pairs(whitelist.Usernames) do 
+     if player.Name == v then 
+         isPassed = true 
+     end 
+ end 
+  
+ for i,v in pairs(whitelist.UserIds) do 
+     if player.UserId == v then 
+         isPassed = true 
+     end 
+ end 
+  
+ if isPassed == false then 
+     player:Kick("You are not whitelisted!") 
+     task.wait(3) 
+     game:Shutdown() 
+     task.wait(1) 
+     while true do end 
+ end 
+
+
+
+do --//
+    local coreGui = game:GetService("CoreGui")
+    local contentProvider = game:GetService('ContentProvider')
+    local tbl = {}
+    
+    for index, descendant in pairs(coreGui:GetDescendants()) do
+        if descendant:IsA("ImageLabel") and string.find(descendant.Image, "rbxasset://") then
+            table.insert(tbl, descendant.Image)
+        end
+    end
+    
+    local preloadAsync; preloadAsync = hookfunction(contentProvider.PreloadAsync, function(self, ...)
+        local args = {...}
+        if not checkcaller() and type(args[1]) == "table" and table.find(args[1], coreGui) then
+            args[1] = tbl
+            return preloadAsync(self, unpack(args))
+        end
+        return preloadAsync(self, ...)
+    end)
+    
+    local function compareMethod(m1, m2)
+        return string.lower(m1) == string.lower(m2)
+    end
+    
+    local __namecall; __namecall = hookmetamethod(game, "__namecall", function(self, ...)
+        local args = {...}
+        local method = getnamecallmethod()
+        if not checkcaller() and type(args[1]) == "table" and table.find(args[1], coreGui) and self == contentProvider and compareMethod("PreloadAsync", method) then
+            args[1] = tbl
+            return __namecall(self, unpack(args))
+        end
+        return __namecall(self, ...)
+    end)
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/LucidHubPremium/Lucid-V2-/main/LucidLib.lua"))()
+
+local window = library:Window({
+   Title = "Lucid [V2]",
+   Accent = Color3.fromRGB(97, 153, 242),
+   Logo = 3610245066,
+   ToggleKey = Enum.KeyCode.LeftAlt
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+local wiihub = {
+	pv = true,
+	unitoggle = true,
+	blatoggle = true,
+	block = true,
+	AutoFollowQb = true,
+	tprange = 0,
+	autocatchv = 0,
+}
+
+local players = game:GetService("Players")
+local userInputService = game:GetService("UserInputService")
+local replicatedStorage = game:GetService("ReplicatedStorage")
+local remotes = replicatedStorage:FindFirstChild("Remotes")
+local characterSoundEvent = remotes:FindFirstChild("CharacterSoundEvent")
+local player = players.LocalPlayer
+local runService = game:GetService("RunService")
+
+local blatant = 0
+local universal = 0
+local uis = game:GetService("UserInputService")
+local uniDelay = 0
+local regDelay = 0
+
+-- Functions
+
+local Players = game:GetService("Players")
+local Mouse = Players.LocalPlayer:GetMouse()
+local numTeleports = 30 -- Define the number of teleports
+local tooggleEnabled = false -- Variable to track the toggle state
+
+local function universalcatch()
+	if tooggleEnabled then
+		local catchRight = Players.LocalPlayer.Character:FindFirstChild("CatchRight")
+
+		if not catchRight then
+			return
+		end
+
+		local closestFootball = nil
+		local closestDistance = math.huge
+
+		for i, v in pairs(game.Workspace:GetDescendants()) do
+			if v.Name == "Football" and v:IsA("BasePart") then
+				local distance = (v.Position - catchRight.Position).Magnitude
+				if distance < closestDistance and distance <= universal then
+					v.CanCollide = false
+					closestDistance = distance
+					closestFootball = v
+				end
+			end
+		end
+
+		if closestFootball then
+				wait(uniDelay)
+			firetouchinterest(game.Players.LocalPlayer.Character["CatchRight"], closestFootball, 0)
+			firetouchinterest(game.Players.LocalPlayer.Character["CatchRight"], closestFootball, 0)
+			firetouchinterest(game.Players.LocalPlayer.Character["CatchRight"], closestFootball, 1)
+			firetouchinterest(game.Players.LocalPlayer.Character["CatchRight"], closestFootball, 1)
+			task.wait()
+		end
+	end
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+local plr = game.Players.LocalPlayer
+local rs = game:GetService("RunService")
+
+
+
+
+local tooggleEnabled = false -- Variable to track the toggle state
+
+
+
 
 
 
@@ -176,6 +397,73 @@ local section = column:Section({
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+section:Toggle({
+   Text = "Lucid [V1] Magnets",
+   State = false,
+   Callback = function(v)
+tooggleEnabled = v
+	while tooggleEnabled == true do
+		task.wait()
+		universalcatch()
+	end
+end,
+ })
+
+
+
+
+section:Slider({
+   Text = "Customizable Distance",
+   Min = 0,
+   Max = 30,
+   Def = 0,
+ Callback = function(v)
+   universal = v
+		end,
+})
+
+
+
+
+
+section:Slider({
+   Text = "Customizable Delay",
+   Min = 0,
+   Max = 1,
+   Def = 0,
+   Callback = function(v) 
+uniDelay = v
+    end,
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 local column = tabsection:AddColumn({
    Title = "QB Aimbot"
 })
@@ -189,8 +477,9 @@ local section = column:Section({
 
 
 section:Button({
-   Text = "Basic Aimbot [V1]",
+   Text = "Lucid Aimbot [V1]",
    Callback = function() 
+
 
 
 local players = game:GetService("Players")
@@ -201,7 +490,7 @@ local locked = false
 local enabled = true
 local target = nil
 local h = Instance.new("Hint"); h.Parent = workspace
-local part = Instance.new("Part"); part.Parent = workspace; part.Anchored = true part.Size = Vector3.new(3, 1, 3); part.CanCollide = false
+local part = Instance.new("Part"); part.Parent = workspace; part.Anchored = true part.Size = Vector3.new(5, 1, 1); part.CanCollide = false
 local beam = Instance.new("Beam"); beam.Parent = workspace.Terrain
 local a0, a1 = Instance.new("Attachment"), Instance.new("Attachment"); a0.Parent = workspace.Terrain; a1.Parent = workspace.Terrain
 beam.Width0 = 0.5
@@ -415,14 +704,15 @@ end
 		a0.CFrame = a0.Parent.CFrame:Inverse() * cf1
 		a1.CFrame = a1.Parent.CFrame:Inverse() * cf2
 		data.Direction = direction; data.Power = power
-		
+	        h.Text = "Time: "..(math.round(t * 100) / 100).."  Angle: "..data.Angle.."  Power: "..data.Power.."  Target: "..target.Name.."  PH: "..(math.round(peakHeight * 100) / 100).."  Catchers: "..#catchers.."  AA: "..(90 - (math.round(math.deg(math.acos(direction.Y)) * 100) / 100))
 	end
 end
-		end,
-	})
+end,
+})
+
 		
 	
-
+	
 
 
 
@@ -1089,3 +1379,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/CasperFlyModz/discord
 	end,
 })
 	
+
+
+
+
