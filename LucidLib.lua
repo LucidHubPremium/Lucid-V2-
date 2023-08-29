@@ -237,7 +237,7 @@ function library:Window(options)
     local TabsFunc = {}
 
     function TabsFunc:NewTab(options)
-        local Logo = options.Logo or '4483345998'
+        local Logo = options.Logo or '14617827220'
 
         local tab_shell = Instance.new("TextButton")
         tab_shell.Name = "tab_shell"
