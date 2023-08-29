@@ -787,24 +787,11 @@ end,
   })
 
 
-section:Button({
-   Text = "No Jump Cooldown",
-   Callback = function() 
-local OldH; OldH = hookfunction(wait, function(w)
-
-if w == 3 then
-   return 0
-end
-
-return OldH(w)
-
-end)
-end,
-	})
 
 
 
-game:GetService("UserInputService").InputBegan:Connect(onKeyPress)
+
+
 
 
 
