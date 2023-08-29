@@ -232,7 +232,7 @@ end
 
 
 local tab = window:NewTab({
-   Logo = 4483345998
+   Logo = 14617827220
 })
 
 
