@@ -52,7 +52,7 @@ end
 function library:Window(options)
     local TitleUI = options.Title or "Kronos Lib"
     local Accent = options.Accent or Color3.fromRGB(28,28,28)
-    local Logo = options.Logo or '3610245066'
+    local Logo = options.Logo or '14617827220'
     local Toggle_Key = options.ToggleKey or Enum.KeyCode.LeftBracket
 
     local Kronos = Instance.new("ScreenGui")
