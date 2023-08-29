@@ -600,8 +600,7 @@ end
 		a0.CFrame = a0.Parent.CFrame:Inverse() * cf1
 		a1.CFrame = a1.Parent.CFrame:Inverse() * cf2
 		data.Direction = direction; data.Power = power
-	        h.Text = "Time: "..(math.round(t * 100) / 100).."  Angle: "..data.Angle.."  Power: "..data.Power.."  Target: "..target.Name.."  PH: "..(math.round(peakHeight * 100) / 100).."  Catchers: "..#catchers.."  AA: "..(90 - (math.round(math.deg(math.acos(direction.Y)) * 100) / 100))
-	end
+				end
 end
 end,
 })
