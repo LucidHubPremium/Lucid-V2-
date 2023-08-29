@@ -235,6 +235,8 @@ local tab = window:NewTab({
    Logo = 4483345998
 })
 
+
+
 local tabsection = tab:TabSection({
    Title = "Lucid [V2]"
 })
@@ -243,9 +245,75 @@ local column = tabsection:AddColumn({
    Title = "Catching"
 })
 
+local section = column:Section({
+   Title = "Adjustable Magnets"
+})
+
+
+section:Toggle({
+   Text = "Lucid [V2] Magnets",
+   State = false,
+   Callback = function(v)
+tooggleEnabled = v
+	while tooggleEnabled == true do
+		task.wait()
+		universalcatch()
+	end
+end,
+ })
+
+
+
+
+section:Slider({
+   Text = "Customizable Distance",
+   Min = 0,
+   Max = 30,
+   Def = 0,
+ Callback = function(v)
+  universal = v
+		end,
+})
+
+
+
+
+
+section:Slider({
+   Text = "Customizable Delay",
+   Min = 0,
+   Max = 1,
+   Def = 0,
+   Callback = function(v) 
+uniDelay = v
+    end,
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 local section = column:Section({
-   Title = "Regular Mags"
+   Title = "Regular Magnets"
 })
 
 
@@ -611,7 +679,9 @@ end,
 
 
 
-
+section:TextLabel({
+   Text = "F or R to Adjust Angle"
+})
 
 
 
@@ -635,6 +705,17 @@ end,
 local column = tabsection:AddColumn({
    Title = "Physics"
 })
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -868,7 +949,7 @@ end,
 
 
 
-
+section:Divide({})
 
 
 
@@ -938,7 +1019,7 @@ end,
 })
 
 
-
+section:Divide({})
 
 
 section:Toggle({
